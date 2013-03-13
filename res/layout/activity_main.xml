@@ -8,22 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="37dp"
-        android:onClick="SendSMS"
-        android:text="Send test message" />
-
     <ToggleButton
         android:id="@+id/toggleButton1"
         android:layout_width="wrap_content"
@@ -36,5 +20,37 @@
     android:textOff="Service off"
         
         android:text="ToggleButton" />
+
+    <EditText
+        android:id="@+id/msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/phone"
+        android:ems="10"
+        android:hint="test msg" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/msg"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="phone num" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/msg"
+        android:layout_marginTop="22dp"
+        android:onClick="SendSMS"
+        android:text="Send test message" />
 
 </RelativeLayout>
