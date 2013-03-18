@@ -34,22 +34,20 @@ public class MainActivity extends Activity {
 	public void SendSMS(View view) {
 		// test sending SMS
 
-		String phone=((EditText)findViewById(R.id.phone)).getText().toString();
-		String msg=((EditText)findViewById(R.id.msg)).getText().toString();
+		String phone = ((EditText) findViewById(R.id.phone)).getText()
+				.toString();
+		String msg = ((EditText) findViewById(R.id.msg)).getText().toString();
 		SmsManager smsManager = SmsManager.getDefault();
-		//phone = "+79161234567";
-		//msg="непереводимая игра слов";
-		
-		smsManager.sendTextMessage(phone, null, msg,
-				null, null);
+		// phone = "+79161234567";
+		// msg="непереводимая игра слов";
+
+		smsManager.sendTextMessage(phone, null, msg, null, null);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-		// Add the buttons
 		builder.setMessage("Сообщение отослано").setTitle("Ок");
 		builder.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int id) {
-				// MainActivity.this.finish();
 				// User clicked OK button
 			}
 		});
@@ -61,14 +59,13 @@ public class MainActivity extends Activity {
 		boolean on = ((ToggleButton) view).isChecked();
 		AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(this, ServiceExample.class);
-	   // Intent intent=new Intent("com.example.smsinformer.ServiceExample");
-		PendingIntent pintent = PendingIntent.getService(this, 0,
-				intent, 0);
+		// Intent intent=new Intent("com.example.smsinformer.ServiceExample");
+		PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
 
 		if (on) {
 			// Enable vibrate
-			//startService(new Intent(this, ServiceExample.class));
-		    //this.startService(intent);
+			// startService(new Intent(this, ServiceExample.class));
+			// this.startService(intent);
 			// inetnt=new Intent(this,ServiceExample.class);
 			Log.v("SmsInformer", "Starting service");
 			// startService(inetnt);
@@ -78,7 +75,6 @@ public class MainActivity extends Activity {
 					40 * 1000, pintent);
 
 		} else {
-			// Disable vibrate
 			// inetnt=new Intent(this,ServiceExample.class);
 			Log.v("SmsInformer", "Stopping service");
 			// stopService(inetnt);

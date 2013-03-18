@@ -30,7 +30,6 @@ public class ServiceExample extends IntentService {
 		Log.v("Service create", "creating service");
 	}
 
-	// ArrayList<String> receivers = new ArrayList<String>();
 	CentreonMessages messages = new CentreonMessages();
 
 	@Override
@@ -43,22 +42,6 @@ public class ServiceExample extends IntentService {
 		super.onCreate();
 		Toast.makeText(this, "Service Created", Toast.LENGTH_LONG).show();
 		/*
-		 * Log.v("Thread service", "Creating service"); Log.v("Thread service",
-		 * "Reading receivers file"); String path =
-		 * Environment.getExternalStorageDirectory() +
-		 * "/SmsInformer/receivers.txt";
-		 * 
-		 * BufferedReader rd; // final StringBuffer storedString = new
-		 * StringBuffer();
-		 * 
-		 * try { rd = new BufferedReader(new FileReader(path)); String line =
-		 * null; // read all the lines till the end while ((line =
-		 * rd.readLine()) != null) { receivers.add(line); } rd.close(); // close
-		 * reader
-		 * 
-		 * rd.close(); // close reader
-		 * 
-		 * } catch (Exception e) { Log.e("Service run error", e.getMessage());
 		 * Log.e("Service run", "Stopping service (harakiri)"); AlarmManager
 		 * alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		 * Intent intent = new Intent(this, ServiceExample.class); PendingIntent
@@ -100,12 +83,11 @@ public class ServiceExample extends IntentService {
 		@Override
 		public void run() {
 			super.run();
-			// while(true)
-			// {
 			Log.v("Thread service", "Running service thread");
 			boolean s = ReadMessages();
 			int time = GetLastTime();
-			Log.v("Thread service", "Searching for messages modified after "+time);
+			Log.v("Thread service", "Searching for messages modified after "
+					+ time);
 			CentreonMessage m;
 			if (!s)
 				Log.v("Thread service", "ReadMessages call failed, aborting");
@@ -136,39 +118,31 @@ public class ServiceExample extends IntentService {
 					smsManager
 							.sendTextMessage(phone, null, message, null, null);
 					SetLastTime(m.time);
-					time=m.time;
-					Log.v("Thread service", "Setting last modification time to "+m.time);
+					time = m.time;
+					Log.v("Thread service",
+							"Setting last modification time to " + m.time);
 				}
 		}
-		// messages.clear();
-		// handler.sendEmptyMessage(0);
-		// }
 
 	}
 
 	boolean ReadMessages() {
 
-		// messages.clear();
-
-
-		Log.v("ReadMessages","Remounting SD card to update contents");
+		Log.v("ReadMessages", "Remounting SD card to update contents");
 		final Runtime runtime = Runtime.getRuntime();
-		//Process process = null;
 
 		String[] str = { "su", "-c", "umount /mnt/sdcard" };
-		String[] str2 = { "su", "-c","mount -r -t vfat /dev/block/vold/179:1 /mnt/sdcard" };
+		String[] str2 = { "su", "-c",
+				"mount -r -t vfat /dev/block/vold/179:1 /mnt/sdcard" };
 		try {
-			//process = 
-					runtime.exec(str);
-			//process = 
-					runtime.exec(str2);
+			runtime.exec(str);
+			runtime.exec(str2);
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
 
-		Log.v("ReadMessages","Copying messages log to local app folder");
+		Log.v("ReadMessages", "Copying messages log to local app folder");
 		String from = Environment.getExternalStorageDirectory()
 				+ "/SmsInformer/messages.txt";
 		PackageManager m = getPackageManager();
@@ -181,42 +155,34 @@ public class ServiceExample extends IntentService {
 			e1.printStackTrace();
 		}
 		s = p.applicationInfo.dataDir;
-		
-		String to=s+"/messages.txt";
-		String command ="cp "+from+" "+to;
-		Log.v("ReadMessages",command);
 
-		String[] str3 = { "su", "-c",command };
+		String to = s + "/messages.txt";
+		String command = "cp " + from + " " + to;
+		Log.v("ReadMessages", command);
+
+		String[] str3 = { "su", "-c", command };
 		try {
-			//process = 
-					runtime.exec(str3);
+			runtime.exec(str3);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-		Log.v("ReadMessages","Reading messages file");
+		Log.v("ReadMessages", "Reading messages file");
 		BufferedReader rd;
 		StringBuilder sb = new StringBuilder();
-		// final StringBuffer storedString = new StringBuffer();
-
 		try {
 			rd = new BufferedReader(new FileReader(to));
 			String line = null;
 			// read all the lines till the end
 			while ((line = rd.readLine()) != null) {
 				sb.append(line + "\n");
-				// messages.add(line);
 			}
 			rd.close(); // close reader
-
-			//File file = new File(path);
-			//file.delete();
 			messages.set(sb.toString());
 			return true;
 		} catch (Exception e) {
 			Log.e("Service run", e.getMessage());
-			// messages.clear();
 			return false;
 		}
 	}
@@ -240,10 +206,4 @@ public class ServiceExample extends IntentService {
 		Log.v("Thread service", "handling intent");
 	}
 
-	/*
-	 * private Handler handler=new Handler(){
-	 * 
-	 * @Override public void handleMessage(Message msg) {
-	 * super.handleMessage(msg); //showAppNotification(); } };
-	 */
 }
