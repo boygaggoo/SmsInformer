@@ -39,13 +39,13 @@ public class MainActivity extends Activity {
 		String msg = ((EditText) findViewById(R.id.msg)).getText().toString();
 		SmsManager smsManager = SmsManager.getDefault();
 		// phone = "+79161234567";
-		// msg="непереводимая игра слов";
+		// msg="sample message";
 
 		smsManager.sendTextMessage(phone, null, msg, null, null);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-		builder.setMessage("Сообщение отослано").setTitle("Ок");
-		builder.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+		builder.setMessage("Message sent").setTitle("Ok");
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int id) {
 				// User clicked OK button
