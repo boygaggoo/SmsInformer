@@ -1,7 +1,6 @@
 package com.example.smsinformer;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -150,6 +149,26 @@ public class ServiceExample extends IntentService {
 	boolean ReadMessages() {
 
 		// messages.clear();
+
+
+		Log.v("ReadMessages","Remounting SD card to update contents");
+		final Runtime runtime = Runtime.getRuntime();
+		//Process process = null;
+
+		String[] str = { "su", "-c", "umount /mnt/sdcard" };
+		String[] str2 = { "su", "-c","mount -r -t vfat /dev/block/vold/179:1 /mnt/sdcard" };
+		try {
+			//process = 
+					runtime.exec(str);
+			//process = 
+					runtime.exec(str2);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+
+		Log.v("ReadMessages","Copying messages log to local app folder");
 		String from = Environment.getExternalStorageDirectory()
 				+ "/SmsInformer/messages.txt";
 		PackageManager m = getPackageManager();
@@ -167,16 +186,16 @@ public class ServiceExample extends IntentService {
 		String command ="cp "+from+" "+to;
 		Log.v("ReadMessages",command);
 
-		final Runtime runtime = Runtime.getRuntime();
-		Process process = null;
-		String[] str = { "su", "-c",command };
+		String[] str3 = { "su", "-c",command };
 		try {
-			process = runtime.exec(str);
+			//process = 
+					runtime.exec(str3);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
+		Log.v("ReadMessages","Reading messages file");
 		BufferedReader rd;
 		StringBuilder sb = new StringBuilder();
 		// final StringBuffer storedString = new StringBuffer();

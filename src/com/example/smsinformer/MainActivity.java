@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 			Calendar cal = Calendar.getInstance();
 			// Start every 30 seconds
 			alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-					20 * 1000, pintent);
+					40 * 1000, pintent);
 
 		} else {
 			// Disable vibrate
