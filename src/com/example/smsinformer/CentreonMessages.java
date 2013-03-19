@@ -15,8 +15,7 @@ public class CentreonMessages {
 		// cut last char
 		if (json.length() > 2)
 			json = json.substring(0, json.length() - 2);
-		json=json.replace("\r","");
-		json=json.replace("\n","");
+		json = json.replaceAll("(\\r|\\n)", "");
 		json = "{\"Messages\":[" + json + "]}";
 
 		try {
