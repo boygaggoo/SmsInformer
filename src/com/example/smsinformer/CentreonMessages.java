@@ -13,7 +13,8 @@ public class CentreonMessages {
 	public boolean set(String json) {
 		messages.clear();
 		// cut last char
-		json = json.substring(0, json.length() - 2);
+		if (json.length() > 2)
+			json = json.substring(0, json.length() - 2);
 		json = "{\"Messages\":[" + json + "]}";
 
 		try {

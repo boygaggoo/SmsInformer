@@ -181,10 +181,17 @@ public class ServiceExample extends IntentService {
 				sb.append(line + "\n");
 			}
 			rd.close(); // close reader
-			messages.set(sb.toString());
-			return true;
+			if (sb.length() > 5) {
+				messages.set(sb.toString());
+				return true;
+			} else {
+				Log.v("ReadMessages",
+						"Too little messages length, won't parse.");
+				return false;
+			}
 		} catch (Exception e) {
-			Log.e("Service run", e.getMessage());
+			// Log.e("Service run", e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 	}
