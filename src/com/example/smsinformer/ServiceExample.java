@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class ServiceExample extends IntentService {
 
 	private static final String PREFS_NAME = "SmsInformer";
-	private static final boolean REMOUNT = false;
+	private static final boolean REMOUNT = true;
 
 	public ServiceExample(String name) {
 		super(name);
