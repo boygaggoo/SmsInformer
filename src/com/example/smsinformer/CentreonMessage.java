@@ -12,7 +12,7 @@ public class CentreonMessage {
 
 	String getSmsText() {
 		String format = "dd/MM HH:mm";
-		Date dt = new java.util.Date(time);
+		Date dt = new java.util.Date(time*1000);
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.UK);
 		sdf.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
 		String dt2 = sdf.format(dt);
