@@ -19,6 +19,7 @@ import android.widget.Toast;
 public class ServiceExample extends IntentService {
 
 	private static final String PREFS_NAME = "SmsInformer";
+	private static final boolean REMOUNT = false;
 
 	public ServiceExample(String name) {
 		super(name);
@@ -128,20 +129,21 @@ public class ServiceExample extends IntentService {
 
 	boolean ReadMessages() {
 
-		Log.v("ReadMessages", "Remounting SD card to update contents");
 		final Runtime runtime = Runtime.getRuntime();
+		if (REMOUNT) {
+			Log.v("ReadMessages", "Remounting SD card to update contents");
 
-		String[] str = { "su", "-c", "umount /mnt/sdcard" };
-		String[] str2 = { "su", "-c",
-				"mount -r -t vfat /dev/block/vold/179:1 /mnt/sdcard" };
-		try {
-			runtime.exec(str);
-			runtime.exec(str2);
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			String[] str = { "su", "-c", "umount /mnt/sdcard" };
+			String[] str2 = { "su", "-c",
+					"mount -r -t vfat /dev/block/vold/179:1 /mnt/sdcard" };
+			try {
+				runtime.exec(str);
+				runtime.exec(str2);
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 		}
-
 		Log.v("ReadMessages", "Copying messages log to local app folder");
 		String from = Environment.getExternalStorageDirectory()
 				+ "/SmsInformer/messages.txt";
