@@ -44,7 +44,7 @@ public class CentreonMessages {
 
 	}
 
-	CentreonMessage getNew(int time) {
+	CentreonMessage getNew(long time) {
 		if (counter != 0 && counter + 1 < messages.size()) {
 			counter++;
 			return messages.get(counter);

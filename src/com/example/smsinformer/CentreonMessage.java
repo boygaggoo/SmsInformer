@@ -8,7 +8,7 @@ import java.util.TimeZone;
 public class CentreonMessage {
 
 	String type, service_description, host, host_alias, address, state, phone;
-	int time;
+	long time=0;
 
 	String getSmsText() {
 		String format = "dd/MM HH:mm";

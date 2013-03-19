@@ -86,7 +86,7 @@ public class ServiceExample extends IntentService {
 			super.run();
 			Log.v("Thread service", "Running service thread");
 			boolean s = ReadMessages();
-			int time = GetLastTime();
+			long time = GetLastTime();
 			Log.v("Thread service", "Searching for messages modified after "
 					+ time);
 			CentreonMessage m;
@@ -196,17 +196,17 @@ public class ServiceExample extends IntentService {
 		}
 	}
 
-	int GetLastTime() {
+	long GetLastTime() {
 		SharedPreferences settings = getApplicationContext()
 				.getSharedPreferences(PREFS_NAME, 0);
-		return settings.getInt("LastTime", 0);
+		return settings.getLong("LastTime", 0);
 	}
 
-	void SetLastTime(int d) {
+	void SetLastTime(long d) {
 		SharedPreferences settings = getApplicationContext()
 				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt("LastTime", d);
+		editor.putLong("LastTime", d);
 		editor.commit();
 	}
 
